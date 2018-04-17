@@ -25,13 +25,22 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    #complete this method
+    user = User.new(user_params)
+    if user.save
+      flash[:notice] = "You have successfully registered."
+      redirect_to root_url
+    else
+      flash[:notice] = "Please put valid information."
+      redirect_to registrations_url
+    end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    #complete this method
+    user = User.find(params[:id])
+    user.update!(user_params)
+    redirect_to user
   end
 
   # DELETE /users/1
